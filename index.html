@@ -1,15 +1,5 @@
 <!doctype html><html lang="fa" dir="rtl"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
 <title>Mohan self</title>
-<meta name="application-name" content="Mohan self">
-<meta name="apple-mobile-web-app-title" content="Mohan self">
-<meta name="theme-color" content="#17152d">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<link rel="manifest" href="./manifest.webmanifest">
-<link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
-<link rel="apple-touch-icon" href="./icons/icon-512.png">
-
 <script>if(window.AndroidBridge)document.documentElement.classList.add("android-wv");</script>
 <style>
 @font-face{font-family:"Vazirmatn";src:url("fonts/vazirmatn.ttf") format("truetype");font-weight:100 900;font-display:swap}
@@ -1137,6 +1127,15 @@ b,strong{font-weight:700}
 .iv-pay-meta{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
 .iv-pay-amt{font-weight:700;color:var(--ok,#1f7a4f);font-size:.98rem}
 </style>
+
+<meta name="theme-color" content="#17132f">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Mohan self">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icons/icon-192.png">
+<link rel="apple-touch-icon" href="./icons/icon-192.png">
 </head>
 <body>
 
@@ -3648,7 +3647,7 @@ function printDocumentPdf(jobTitle,bodyHtml,extraCss=''){
   const safeTitle=enMode?enTranslateText(jobTitle):jobTitle;
   const html=`<!doctype html><html lang="${enMode?'en':'fa'}" dir="${enMode?'ltr':'rtl'}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(safeTitle)}</title><style>@page{size:A4 portrait;margin:12mm}*{box-sizing:border-box}body{margin:0;padding:0;background:#fff;color:#171a21;font-family:${enMode?'"Inter","Segoe UI",Roboto,sans-serif':'"Vazirmatn",Tahoma,sans-serif'};font-size:10.5pt;line-height:1.75;direction:${enMode?'ltr':'rtl'};-webkit-print-color-adjust:exact;print-color-adjust:exact}h1,h2,h3{font-family:${enMode?'"Inter","Segoe UI",sans-serif':'"Lalezar","Vazirmatn",Tahoma,sans-serif'};margin:0 0 6px;color:#143f35}.pdf-wrap{width:100%;max-width:186mm;margin:0 auto}.pdf-head{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;border-bottom:2px solid #1f6b4f;padding-bottom:8px;margin-bottom:12px}.pdf-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:12px}.pdf-kpi{border:1px solid #cbd5e1;border-radius:8px;padding:7px 10px;background:#f8fafc}.pdf-kpi small{display:block;font-size:8.5pt;color:#64748b}.pdf-kpi b{font-size:11pt;color:#0f172a}table{width:100%;border-collapse:collapse;font-size:9pt;margin-top:8px}th{background:#e8f1ec;color:#143f35;border:1px solid #b9cbc1;padding:5px 6px;text-align:${enMode?'left':'right'}}td{border:1px solid #cbd5e1;padding:5px 6px;vertical-align:top}tr{break-inside:avoid;page-break-inside:avoid}pre{white-space:pre-wrap;font-family:inherit;font-size:9.8pt;line-height:1.85;margin:0;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:10px 12px}.pdf-foot{margin-top:14px;padding-top:6px;border-top:1px dashed #cbd5e1;font-size:8.5pt;color:#64748b;display:flex;justify-content:space-between}${extraCss}</style></head><body><div class="pdf-wrap">${bodyHtml}</div>${'<scr'+'ipt>'}addEventListener('load',function(){setTimeout(function(){window.print()},450)})${'</scr'+'ipt>'}
 <script>
-if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(()=>{})); }
+if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(err => console.warn('SW registration failed', err))); }
 </script>
 </body></html>`;
   if(hasAndroid&&typeof AndroidBridge.printHtml==='function'){
@@ -4052,7 +4051,11 @@ function invoicePages(x){
 function invoiceFile(x){
   const hd=invHeader(),enMode=isEn();
   const title=enMode?`${x.docType==='proforma'?'Proforma Invoice':'Invoice'} ${fa(x.no)}${hd.name?' - '+hd.name:''}`:`${x.docType==='proforma'?'پیش‌فاکتور':'فاکتور'} ${fa(x.no)}${hd.name?' - '+hd.name:''}`;
-  return `<!doctype html><html lang="${enMode?'en':'fa'}" dir="${enMode?'ltr':'rtl'}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(title)}</title><style>@page{size:A4 portrait;margin:6mm}body{margin:0;background:#eee}${INV_CSS}${enMode?'.inv-page{font-family:"Inter","Segoe UI",Roboto,sans-serif;direction:ltr}.inv-tbl td.nm,.inv-deliv-tbl td.nt{text-align:left}':''}.inv-page{box-shadow:none;margin:0 auto;height:282mm;max-height:282mm;page-break-after:always;break-after:page}.inv-page:last-child{page-break-after:auto;break-after:auto}@media screen{.inv-page{margin:10px auto;box-shadow:0 2px 10px rgba(0,0,0,.15)}}@media print{body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}}</style></head><body>${invoicePages(x)}${'<scr'+'ipt>'}addEventListener('load',function(){setTimeout(function(){window.print()},500)})${'</scr'+'ipt>'}</body></html>`;
+  return `<!doctype html><html lang="${enMode?'en':'fa'}" dir="${enMode?'ltr':'rtl'}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(title)}</title><style>@page{size:A4 portrait;margin:6mm}body{margin:0;background:#eee}${INV_CSS}${enMode?'.inv-page{font-family:"Inter","Segoe UI",Roboto,sans-serif;direction:ltr}.inv-tbl td.nm,.inv-deliv-tbl td.nt{text-align:left}':''}.inv-page{box-shadow:none;margin:0 auto;height:282mm;max-height:282mm;page-break-after:always;break-after:page}.inv-page:last-child{page-break-after:auto;break-after:auto}@media screen{.inv-page{margin:10px auto;box-shadow:0 2px 10px rgba(0,0,0,.15)}}@media print{body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}}</style></head><body>${invoicePages(x)}${'<scr'+'ipt>'}addEventListener('load',function(){setTimeout(function(){window.print()},500)})${'</scr'+'ipt>'}
+<script>
+if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(err => console.warn('SW registration failed', err))); }
+</script>
+</body></html>`;
 }
 function invoicePlainText(x){
   const hd=invHeader(),t=invTotals(x),isProf=x.docType==='proforma',enMode=isEn();
@@ -7658,5 +7661,9 @@ if(location.hash&&VIEWS.some(v=>v[0]===location.hash.slice(1)))startView=locatio
   }
 })();
 })();
+</script>
+
+<script>
+if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(err => console.warn('SW registration failed', err))); }
 </script>
 </body></html>
